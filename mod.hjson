@@ -1,0 +1,8 @@
+name: "destroyer-of-worlds"
+displayName: "The Destroyer of the Worlds"
+author: "EvlCorp"
+description: "A global mod and campaign about the destruction of worlds."
+version: "0.0.1"
+minGameVersion: "154"
+main: "evilcorp.DestroyerworldMod"
+java: true
