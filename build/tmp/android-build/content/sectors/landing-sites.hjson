@@ -1,0 +1,9 @@
+[
+  {
+    name: "alla-landing"
+    localizedName: "Высадка на Аллу"
+    planet: "alla"
+    sector: 0
+    difficulty: 1
+  }
+]

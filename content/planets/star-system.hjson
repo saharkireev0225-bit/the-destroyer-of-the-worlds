@@ -2,7 +2,6 @@
   {
     name: "tantar"
     localizedName: "Тантар (Звезда)"
-    parent: "sun"
     generator: "serpulo"
     radius: 4.0
     sectorSize: 2
@@ -41,7 +40,7 @@
     name: "gangos"
     localizedName: "Гангос (Спутник)"
     parent: "nadir"
-    generator: "AsteroidGenerator"
+    generator: "serpulo"
     radius: 0.4
     sectorSize: 1
     accessible: true

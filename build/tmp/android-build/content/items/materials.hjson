@@ -1,0 +1,16 @@
+[
+  {
+    type: Item
+    name: "destroyer-scrap"
+    color: "8b6b4a"
+    hardness: 1
+    cost: 1
+  }
+  {
+    type: Item
+    name: "creo-shard"
+    color: "a0d8ff"
+    hardness: 3
+    cost: 2
+  }
+]

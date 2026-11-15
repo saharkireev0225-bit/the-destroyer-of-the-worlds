@@ -25,6 +25,7 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from('mod.hjson') { into '' }
     from('assets')     { into 'assets' }
+    from('content')    { into 'content' } // <--- ВОТ ЭТА СТРОКА ЗАКИНЕТ HJSON В АРХИВ
 }
 
 // Сборка для Android
