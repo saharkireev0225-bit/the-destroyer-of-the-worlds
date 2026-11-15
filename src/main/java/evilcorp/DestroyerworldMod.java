@@ -1,11 +1,13 @@
 package evilcorp;
 
 import mindustry.mod.Mod;
+import evilcorp.content.ModPlanets;
+import evilcorp.content.ModSectors;
 
 public class DestroyerworldMod extends Mod {
     @Override
     public void loadContent() {
-        // HJSON-контент загрузится автоматически.
-        // Этот метод нужен для будущей сложной логики.
+        ModPlanets.load();
+        ModSectors.load();
     }
 }
