@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+}
+
+version = '0.0.1'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compileOnly 'com.github.Anuken.Mindustry:core:v159.7'
+    compileOnly 'com.github.Anuken.Arc:arc-core:v159.7'
+}
+
+// Сборка для ПК
+jar {
+    archiveFileName = 'destroyer-of-worlds.jar'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from('mod.hjson') { into '' }
+    from('assets')     { into 'assets' }
+}
+
+// Сборка для Android
+tasks.register('jarAndroid') {
+    dependsOn 'jar'
+    doLast {
+        def d8 = "C:/android-build-tools-34/android-14/d8.bat"
+        def inputJar = file("build/libs/destroyer-of-worlds.jar")
+        def outputJar = file("build/libs/destroyer-of-worlds-android.jar")
+        def tempDir = file("build/tmp/android-build")
+        
+        delete tempDir
+        tempDir.mkdirs()
+        
+        copy {
+            from zipTree(inputJar)
+            into tempDir
+            exclude '**/*.class'
+        }
+        
+        exec {
+            commandLine d8, '--min-api', '14', '--output', tempDir.absolutePath, inputJar.absolutePath
+        }
+        
+        new java.util.zip.ZipOutputStream(outputJar.newOutputStream()).withCloseable { zos ->
+            tempDir.eachFileRecurse { file ->
+                if (file.isFile()) {
+                    def path = tempDir.toPath().relativize(file.toPath()).toString()
+                    zos.putNextEntry(new java.util.zip.ZipEntry(path))
+                    file.withInputStream { is -> zos << is }
+                    zos.closeEntry()
+                }
+            }
+        }
+    }
+}
