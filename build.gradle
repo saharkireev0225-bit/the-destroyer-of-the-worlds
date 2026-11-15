@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.github.box3-galen-nv.mindustry-mod-development-plugin' version '1.0.1'
 }
 
 version = '0.0.1'
@@ -19,9 +20,15 @@ dependencies {
     compileOnly 'com.github.Anuken.Arc:arc-core:v159.7'
 }
 
-jar {
-    archiveFileName = 'destroyer-of-worlds.jar'
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from('mod.hjson') { into '' }
-    from('assets')     { into 'assets' }
+tasks.register('jarAndroid') {
+    dependsOn 'jar'
+    doLast {
+        def d8Dir = "C:\\android-build-tools\\android-13\\lib"
+        def d8 = new File(d8Dir, "d8.bat").absolutePath
+        def inputJar = file("build/libs/destroyer-of-worlds.jar")
+        def outputJar = file("build/libs/destroyer-of-worlds-android.jar")
+        exec {
+            commandLine d8, '--min-api', '14', '--output', outputJar.absolutePath, inputJar.absolutePath
+        }
+    }
 }
